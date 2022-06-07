@@ -8,7 +8,7 @@ namespace GlobalMarketAPI.Services
     {
         private readonly HttpClient _httpClient;
         const string QuoteURL = "v6/finance/quote";
-        private readonly Dictionary<string, string> _symbolMap = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> _symbolMap = new();
 
 
         public FinanceService(YahooFinanceSettings settings)
