@@ -1,0 +1,46 @@
+<mat-card>
+  <mat-card-subtitle style="margin-top:-10px">Symbol Quote</mat-card-subtitle>
+  <div class="stock-div">
+    <div class="row">
+      <div class="col-3">
+        <mat-form-field appearance="fill">
+          <mat-select id="symbol" class="symbol" [ngModel]="widgetConfig.symbol" (ngModelChange)="onSymbolChange($event)" required>
+            <mat-option *ngFor="let symbol of symbols" [value]="symbol">{{symbol}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-3">
+        <div class="row">
+          <div class="col">
+            <span>{{quote?.shortName}}</span>
+          </div>
+          <div class="col">
+            <span>Exchange: {{quote?.fullExchangeName}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <mat-chip-list class="symbol-price-chip"
+                       cdkDropList
+                       cdkDropListOrientation="horizontal"
+                       (cdkDropListDropped)="drop($event)">
+          <mat-chip class="symbol-price-box"
+                    cdkDrag
+                    *ngFor="let item of data">
+            {{item.name}}: {{item.value}}
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+    </div>
+  </div>
+</mat-card>
+<mat-progress-bar color="warn" mode="indeterminate" *ngIf="isProgressing"></mat-progress-bar>
+<mat-divider></mat-divider>
+
+<mat-card>
+  <mat-card-subtitle style="margin-top:-10px">Live Chart</mat-card-subtitle>
+  <tradingview-widget [widgetConfig]="widgetConfig"></tradingview-widget>
+</mat-card>
+
+
+

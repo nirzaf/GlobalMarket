@@ -1,0 +1,142 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+     "trading": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/trading",
+      "sourceRoot": "projects/trading/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/trading",
+            "index": "projects/trading/src/index.html",
+            "main": "projects/trading/src/main.ts",
+            "polyfills": "projects/trading/src/polyfills.ts",
+            "tsConfig": "projects/trading/tsconfig.app.json",
+            "assets": [
+              "projects/trading/src/favicon.ico",
+              "projects/trading/src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "projects/trading/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/trading/src/environments/environment.ts",
+                  "with": "projects/trading/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "trading:build:production"
+            },
+            "development": {
+              "browserTarget": "trading:build:development"
+            }
+          },
+          "defaultConfiguration": "development",
+          "options": {
+            "proxyConfig": "projects/trading/src/proxy.conf.js"
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "trading:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/trading/src/test.ts",
+            "polyfills": "projects/trading/src/polyfills.ts",
+            "tsConfig": "projects/trading/tsconfig.spec.json",
+            "karmaConfig": "projects/trading/karma.conf.js",
+            "assets": [
+              "projects/trading/src/favicon.ico",
+              "projects/trading/src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "projects/trading/src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    },
+     "tradingview-widget": {
+      "projectType": "library",
+      "root": "projects/tradingview-widget",
+      "sourceRoot": "projects/tradingview-widget/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/tradingview-widget/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/tradingview-widget/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/tradingview-widget/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/tradingview-widget/src/test.ts",
+            "tsConfig": "projects/tradingview-widget/tsconfig.spec.json",
+            "karmaConfig": "projects/tradingview-widget/karma.conf.js"
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "trading"
+}
